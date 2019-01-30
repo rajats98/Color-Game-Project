@@ -4,9 +4,7 @@ body{
 h1{
 	color: white;
 }
-span{
-	color:white;
-}
+
 
 #container{
 	max-width:600px; 
@@ -20,3 +18,9 @@ span{
 	margin:1.66%;
 }
 
+#stripe{
+	height: 30px;
+	background-color: white;
+	text-align: center;
+	color: black;
+}
