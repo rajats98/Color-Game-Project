@@ -56,7 +56,7 @@ function setupSquares(){
 		});
 	}
 
-}
+} 
 
 function reset()
 {
