@@ -1,6 +1,6 @@
 var numSquares =6;
 
-var colors = generateRandomColor(numSquares);
+var colors =[];
 var squares = document.querySelectorAll(".square");
 var pickedColor =pickColor() ;
 var colorDisplay = document.getElementById('colorDisplay');
@@ -9,22 +9,53 @@ var resetbutton = document.getElementById('reset');
 var messageDisplay = document.getElementById('message');
 var h1 = document.querySelector('h1');
 var modeButtons =document.querySelectorAll(".mode");
-for (var i = 0; i < modeButtons.length; i++) {
-	modeButtons[i].addEventListener("click",function(){
-		modeButtons[0].classList.remove("selected");
-		modeButtons[1].classList.remove("selected");
-		this.classList.add("selected");
+init();
+function init(){
+	setupModeButtonListener();
+	setupSquares();
+	reset();
 
-		if (this.textContent=== "Easy") {
-			numSquares=3;
-		}
-		else {
-			numSquares=6;
-		}
+}
+function setupModeButtonListener(){
+	for (var i = 0; i < modeButtons.length; i++) {
+		modeButtons[i].addEventListener("click",function(){
+			modeButtons[0].classList.remove("selected");
+			modeButtons[1].classList.remove("selected");
+			this.classList.add("selected");
+			if (this.textContent=== "Easy") {
+				numSquares=3;
+			}
+			else {
+				numSquares=6;
+			}
+			reset();
+		});
+	}
 
-		reset();
-		
-	});
+}
+
+function setupSquares(){
+	for (var i = 0; i < squares.length; i++) {
+		//click listeners
+		squares[i].addEventListener("click",function(){
+			console.log(this.style.backgroundColor,pickedColor);
+			if(this.style.backgroundColor===pickedColor)
+			{
+
+				messageDisplay.textContent="Correct!";
+				changeColors(pickedColor);
+				document.querySelector("h1").style.backgroundColor=pickedColor;
+				resetbutton.textContent="Play Again?";
+
+			}
+			else{
+				this.style.backgroundColor ="#232323";
+				messageDisplay.textContent="Try Again";
+			}
+
+		});
+	}
+
 }
 
 function reset()
@@ -44,6 +75,8 @@ function reset()
 	h1.style.backgroundColor="steelblue";
 	messageDisplay.textContent="";
 	resetbutton.textContent="New colors";
+
+
 
 }
 // easyBtn.addEventListener("click",function(){
@@ -82,30 +115,8 @@ function reset()
 
 
 
-resetbutton.addEventListener("click",reset);;
+resetbutton.addEventListener("click",reset);
 
-for (var i = 0; i < squares.length; i++) {
-	//initial colors
-	squares[i].style.backgroundColor=colors[i];
-	//click listeners
-	squares[i].addEventListener("click",function(){
-		console.log(this.style.backgroundColor,pickedColor);
-		if(this.style.backgroundColor===pickedColor)
-		{
-
-			messageDisplay.textContent="correct";
-			changeColors(pickedColor);
-			document.querySelector("h1").style.backgroundColor=pickedColor;
-			resetbutton.textContent="Play Again?";
-
-		}
-		else{
-			this.style.backgroundColor ="darkgrey";
-			messageDisplay.textContent="Try Again";
-		}
-
-	});
-}
 
 function changeColors(color)
 {
